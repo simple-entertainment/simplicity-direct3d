@@ -24,13 +24,13 @@ namespace simplicity
 	{
 		namespace Direct3D
 		{
-			ID3D11DepthStencilView* depthStencilView = NULL;
+			ID3D11DepthStencilView* depthStencilView = nullptr;
 
-			ID3D11Device* device = NULL;
+			ID3D11Device* device = nullptr;
 
-			ID3D11DeviceContext* deviceContext = NULL;
+			ID3D11DeviceContext* deviceContext = nullptr;
 
-			ID3D11RenderTargetView* renderTargetView = NULL;
+			ID3D11RenderTargetView* renderTargetView = nullptr;
 
 			void checkError(HRESULT result)
 			{
@@ -46,8 +46,8 @@ namespace simplicity
 				{
 					char* output;
 					FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER |
-						FORMAT_MESSAGE_IGNORE_INSERTS, NULL, result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-						(LPTSTR) &output, 0, NULL);
+						FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, result, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+						(LPTSTR) &output, 0, nullptr);
 
 					Logs::log(Category::ERROR_LOG, "Direct3D error: %s", output);
 

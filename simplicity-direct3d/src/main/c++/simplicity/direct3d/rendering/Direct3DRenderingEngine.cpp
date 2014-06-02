@@ -36,14 +36,14 @@ namespace simplicity
 	{
 		Direct3DRenderingEngine::Direct3DRenderingEngine() :
 			camera(),
-			depthStencilBuffer(NULL),
-			graph(NULL),
+			depthStencilBuffer(nullptr),
+			graph(nullptr),
 			height(768),
 			lights(),
 			renderers(),
-			swapChain(NULL),
+			swapChain(nullptr),
 			width(1024),
-			window(NULL)
+			window(nullptr)
 		{
 		}
 
@@ -62,7 +62,7 @@ namespace simplicity
 			CameraProperties cameraProperties = getCameraProperties();
 
 			std::vector<Entity*> entities;
-			if (cameraProperties.bounds == NULL || graph == NULL)
+			if (cameraProperties.bounds == nullptr || graph == nullptr)
 			{
 				entities = Simplicity::getScene()->getEntities();
 			}
@@ -95,7 +95,7 @@ namespace simplicity
 				renderer->dispose();
 			}
 
-			Direct3D::checkError(swapChain->Present(NULL, NULL));
+			Direct3D::checkError(swapChain->Present(0, 0));
 		}
 
 		void Direct3DRenderingEngine::createDepthStencilView()
@@ -113,18 +113,18 @@ namespace simplicity
 			depthStencilDescription.Usage = D3D11_USAGE_DEFAULT;
 			depthStencilDescription.Width = width;
 
-			Direct3D::checkError(Direct3D::device->CreateTexture2D(&depthStencilDescription, NULL,
+			Direct3D::checkError(Direct3D::device->CreateTexture2D(&depthStencilDescription, nullptr,
 				&depthStencilBuffer));
-			Direct3D::checkError(Direct3D::device->CreateDepthStencilView(depthStencilBuffer, NULL,
+			Direct3D::checkError(Direct3D::device->CreateDepthStencilView(depthStencilBuffer, nullptr,
 				&Direct3D::depthStencilView));
 		}
 
 		void Direct3DRenderingEngine::createRenderTargetView()
 		{
-			ID3D11Texture2D* backBuffer = NULL;
+			ID3D11Texture2D* backBuffer = nullptr;
 			Direct3D::checkError(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBuffer));
 
-			Direct3D::checkError(Direct3D::device->CreateRenderTargetView(backBuffer, NULL,
+			Direct3D::checkError(Direct3D::device->CreateRenderTargetView(backBuffer, nullptr,
 				&Direct3D::renderTargetView));
 
 			backBuffer->Release();
@@ -157,9 +157,9 @@ namespace simplicity
 		Direct3DRenderingEngine::CameraProperties Direct3DRenderingEngine::getCameraProperties() const
 		{
 			CameraProperties properties;
-			properties.bounds = NULL;
+			properties.bounds = nullptr;
 
-			if (camera == NULL)
+			if (camera == nullptr)
 			{
 				properties.position = Vector3(0.0f, 0.0f, 0.0f);
 				properties.transform.setIdentity();
@@ -167,14 +167,14 @@ namespace simplicity
 			else
 			{
 				properties.bounds = camera->getComponent<Model>(Category::BOUNDS);
-				if (properties.bounds != NULL)
+				if (properties.bounds != nullptr)
 				{
 					properties.boundsPosition = getPosition3(camera->getTransform() *
 						properties.bounds->getTransform());
 				}
 
 				Camera* cameraComponent = camera->getComponent<Camera>();
-				if (cameraComponent == NULL)
+				if (cameraComponent == nullptr)
 				{
 					properties.transform.setIdentity();
 				}
@@ -232,7 +232,7 @@ namespace simplicity
 
 			D3D_FEATURE_LEVEL supportedFeatureLevel;
 			DXGI_SWAP_CHAIN_DESC swapChainDescription = createSwapChainDescription();
-			Direct3D::checkError(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, flags, NULL, 0,
+			Direct3D::checkError(D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, nullptr, 0,
 				D3D11_SDK_VERSION, &swapChainDescription, &swapChain, &Direct3D::device, &supportedFeatureLevel,
 				&Direct3D::deviceContext));
 
@@ -245,41 +245,41 @@ namespace simplicity
 
 		void Direct3DRenderingEngine::onStop()
 		{
-			if (depthStencilBuffer != NULL)
+			if (depthStencilBuffer != nullptr)
 			{
 				depthStencilBuffer->Release();
-				depthStencilBuffer = NULL;
+				depthStencilBuffer = nullptr;
 			}
 
-			if (Direct3D::depthStencilView != NULL)
+			if (Direct3D::depthStencilView != nullptr)
 			{
 				Direct3D::depthStencilView->Release();
-				Direct3D::depthStencilView = NULL;
+				Direct3D::depthStencilView = nullptr;
 			}
 
-			if (Direct3D::device != NULL)
+			if (Direct3D::device != nullptr)
 			{
 				Direct3D::device->Release();
-				Direct3D::device = NULL;
+				Direct3D::device = nullptr;
 			}
 
-			if (Direct3D::deviceContext != NULL)
+			if (Direct3D::deviceContext != nullptr)
 			{
 				Direct3D::deviceContext->ClearState();
 				Direct3D::deviceContext->Release();
-				Direct3D::deviceContext = NULL;
+				Direct3D::deviceContext = nullptr;
 			}
 
-			if (Direct3D::renderTargetView != NULL)
+			if (Direct3D::renderTargetView != nullptr)
 			{
 				Direct3D::renderTargetView->Release();
-				Direct3D::renderTargetView = NULL;
+				Direct3D::renderTargetView = nullptr;
 			}
 
-			if (swapChain != NULL)
+			if (swapChain != nullptr)
 			{
 				swapChain->Release();
-				swapChain = NULL;
+				swapChain = nullptr;
 			}
 		}
 
@@ -293,7 +293,7 @@ namespace simplicity
 			{
 				removedRenderer = move(*result);
 				renderers.erase(result);
-				renderer = NULL;
+				renderer = nullptr;
 			}
 
 			return move(removedRenderer);

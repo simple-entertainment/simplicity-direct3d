@@ -25,26 +25,26 @@ namespace simplicity
 	{
 		Direct3DMesh::Direct3DMesh(const vector<Vertex>& vertices, const vector<unsigned int>& indices) :
 			color(),
-			indexBuffer(NULL),
+			indexBuffer(nullptr),
 			indexCount(0),
 			initialIndices(indices),
 			initialized(false),
 			initialVertices(vertices),
-			normalMap(NULL),
-			texture(NULL),
-			vertexBuffer(NULL),
+			normalMap(nullptr),
+			texture(nullptr),
+			vertexBuffer(nullptr),
 			visible(true)
 		{
 		}
 
 		Direct3DMesh::~Direct3DMesh()
 		{
-			if (indexBuffer != NULL)
+			if (indexBuffer != nullptr)
 			{
 				indexBuffer->Release();
 			}
 
-			if (vertexBuffer != NULL)
+			if (vertexBuffer != nullptr)
 			{
 				vertexBuffer->Release();
 			}
@@ -78,7 +78,7 @@ namespace simplicity
 			}
 
 			// TODO
-			return NULL;
+			return nullptr;
 		}
 
 		const unsigned int* Direct3DMesh::getIndices() const
@@ -89,7 +89,7 @@ namespace simplicity
 			}
 
 			// TODO
-			return NULL;
+			return nullptr;
 		}
 
 		Texture* Direct3DMesh::getNormalMap() const
@@ -136,7 +136,7 @@ namespace simplicity
 			}
 
 			// TODO
-			return NULL;
+			return nullptr;
 		}
 
 		const Vertex* Direct3DMesh::getVertices() const
@@ -147,7 +147,7 @@ namespace simplicity
 			}
 
 			// TODO
-			return NULL;
+			return nullptr;
 		}
 
 		void Direct3DMesh::init()

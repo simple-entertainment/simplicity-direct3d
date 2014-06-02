@@ -26,31 +26,31 @@ namespace simplicity
 		const unsigned int CONSTANT_BUFFER_SIZE = 128;
 
 		Direct3DPipeline::Direct3DPipeline(Resource& vertexShaderByteCode, Resource& pixelShaderByteCode) :
-			constantBuffer(NULL),
+			constantBuffer(nullptr),
 			constantData(CONSTANT_BUFFER_SIZE, ' '),
 			constantDataSize(0),
 			constantPositions(),
 			initialized(false),
-			pixelShader(NULL),
+			pixelShader(nullptr),
 			pixelShaderByteCode(pixelShaderByteCode.getData()),
-			vertexShader(NULL),
+			vertexShader(nullptr),
 			vertexShaderByteCode(vertexShaderByteCode.getData())
 		{
 		}
 
 		Direct3DPipeline::~Direct3DPipeline()
 		{
-			if (constantBuffer != NULL)
+			if (constantBuffer != nullptr)
 			{
 				constantBuffer->Release();
 			}
 
-			if (pixelShader != NULL)
+			if (pixelShader != nullptr)
 			{
 				pixelShader->Release();
 			}
 
-			if (vertexShader != NULL)
+			if (vertexShader != nullptr)
 			{
 				vertexShader->Release();
 			}
@@ -60,11 +60,11 @@ namespace simplicity
 		{
 			init();
 
-			Direct3D::deviceContext->UpdateSubresource(constantBuffer, 0, NULL, constantData.data(), 0, 0);
+			Direct3D::deviceContext->UpdateSubresource(constantBuffer, 0, nullptr, constantData.data(), 0, 0);
 			Direct3D::deviceContext->VSSetConstantBuffers(0, 1, &constantBuffer);
 
-			Direct3D::deviceContext->VSSetShader(vertexShader, NULL, 0);
-			Direct3D::deviceContext->PSSetShader(pixelShader, NULL, 0);
+			Direct3D::deviceContext->VSSetShader(vertexShader, nullptr, 0);
+			Direct3D::deviceContext->PSSetShader(pixelShader, nullptr, 0);
 		}
 
 		void Direct3DPipeline::init()
@@ -78,10 +78,10 @@ namespace simplicity
 			Direct3D::checkError(Direct3D::device->CreateBuffer(&constantBufferDescription, nullptr, &constantBuffer));
 
 			Direct3D::checkError(Direct3D::device->CreatePixelShader(pixelShaderByteCode.data(),
-				pixelShaderByteCode.size(), NULL, &pixelShader));
+				pixelShaderByteCode.size(), nullptr, &pixelShader));
 
 			Direct3D::checkError(Direct3D::device->CreateVertexShader(vertexShaderByteCode.data(),
-				vertexShaderByteCode.size(), NULL, &vertexShader));
+				vertexShaderByteCode.size(), nullptr, &vertexShader));
 
 			pixelShaderByteCode.resize(0);
 			vertexShaderByteCode.resize(0);

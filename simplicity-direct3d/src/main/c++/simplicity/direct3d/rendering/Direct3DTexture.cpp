@@ -29,9 +29,9 @@ namespace simplicity
 			data(data, length),
 			height(0),
 			initialized(false),
-			rawData(NULL),
-			shaderResourceView(NULL),
-			texture(NULL),
+			rawData(nullptr),
+			shaderResourceView(nullptr),
+			texture(nullptr),
 			width(0)
 		{
 		}
@@ -41,8 +41,8 @@ namespace simplicity
 			height(height),
 			initialized(false),
 			rawData(rawData),
-			shaderResourceView(NULL),
-			texture(NULL),
+			shaderResourceView(nullptr),
+			texture(nullptr),
 			width(width)
 		{
 		}
@@ -51,21 +51,21 @@ namespace simplicity
 			data(image.getData()),
 			height(0),
 			initialized(false),
-			rawData(NULL),
-			shaderResourceView(NULL),
-			texture(NULL),
+			rawData(nullptr),
+			shaderResourceView(nullptr),
+			texture(nullptr),
 			width(0)
 		{
 		}
 
 		Direct3DTexture::~Direct3DTexture()
 		{
-			if (shaderResourceView != NULL)
+			if (shaderResourceView != nullptr)
 			{
 				shaderResourceView->Release();
 			}
 
-			if (texture != NULL)
+			if (texture != nullptr)
 			{
 				texture->Release();
 			}
@@ -94,7 +94,7 @@ namespace simplicity
 		void Direct3DTexture::init()
 		{
 			fipImage image;
-			if (rawData == NULL)
+			if (rawData == nullptr)
 			{
 				fipMemoryIO memory(reinterpret_cast<BYTE*>(&data[0]), data.size());
 				image.loadFromMemory(memory);
@@ -144,7 +144,7 @@ namespace simplicity
 			if (!image.isValid())
 			{
 				delete rawData;
-				rawData = NULL;
+				rawData = nullptr;
 			}
 			*/
 
