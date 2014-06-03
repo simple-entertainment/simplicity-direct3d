@@ -99,7 +99,7 @@ namespace simplicity
 
 		Model::PrimitiveType Direct3DMesh::getPrimitiveType() const
 		{
-			return Model::TRIANGLE_LIST;
+			return PrimitiveType::TRIANGLE_LIST;
 		}
 
 		Texture* Direct3DMesh::getTexture() const
