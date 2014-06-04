@@ -23,7 +23,7 @@ namespace simplicity
 {
 	namespace direct3d
 	{
-		unique_ptr<Mesh> Direct3DModelFactory::createMesh(const vector<Vertex>& vertices)
+		unique_ptr<Mesh> Direct3DModelFactory::createMesh(const vector<Vertex>& vertices, Mesh::Access access)
 		{
 			vector<unsigned int> indices;
 			indices.reserve(vertices.size());
@@ -32,13 +32,13 @@ namespace simplicity
 				indices.push_back(index);
 			}
 
-			return createMesh(vertices, indices);
+			return createMesh(vertices, indices, access);
 		}
 
 		unique_ptr<Mesh> Direct3DModelFactory::createMesh(const vector<Vertex>& vertices,
-			const vector<unsigned int>& indices)
+			const vector<unsigned int>& indices, Mesh::Access access)
 		{
-			return unique_ptr<Mesh>(new Direct3DMesh(vertices, indices));
+			return unique_ptr<Mesh>(new Direct3DMesh(vertices, indices, access));
 		}
 	}
 }

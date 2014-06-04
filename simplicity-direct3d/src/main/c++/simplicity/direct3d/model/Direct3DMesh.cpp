@@ -23,7 +23,9 @@ namespace simplicity
 {
 	namespace direct3d
 	{
-		Direct3DMesh::Direct3DMesh(const vector<Vertex>& vertices, const vector<unsigned int>& indices) :
+		Direct3DMesh::Direct3DMesh(const vector<Vertex>& vertices, const vector<unsigned int>& indices,
+				Access access) :
+			access(access),
 			color(),
 			indexBuffer(nullptr),
 			indexCount(0),
@@ -50,6 +52,11 @@ namespace simplicity
 			}
 		}
 
+		Mesh::Access Direct3DMesh::getAccess() const
+		{
+			return access;
+		}
+
 		const Vector4& Direct3DMesh::getColor() const
 		{
 			return color;
@@ -62,7 +69,7 @@ namespace simplicity
 
 		unsigned int Direct3DMesh::getIndexCount() const
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialIndices.size();
 			}
@@ -72,7 +79,7 @@ namespace simplicity
 
 		unsigned int* Direct3DMesh::getIndices()
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialIndices.data();
 			}
@@ -83,7 +90,7 @@ namespace simplicity
 
 		const unsigned int* Direct3DMesh::getIndices() const
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialIndices.data();
 			}
@@ -119,7 +126,7 @@ namespace simplicity
 
 		unsigned int Direct3DMesh::getVertexCount() const
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialVertices.size();
 			}
@@ -130,7 +137,7 @@ namespace simplicity
 
 		Vertex* Direct3DMesh::getVertices()
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialVertices.data();
 			}
@@ -141,7 +148,7 @@ namespace simplicity
 
 		const Vertex* Direct3DMesh::getVertices() const
 		{
-			if (!initialized)
+			if (!initialized || access == Access::READ_LOCAL)
 			{
 				return initialVertices.data();
 			}
@@ -183,10 +190,13 @@ namespace simplicity
 			Direct3D::checkError(Direct3D::device->CreateBuffer(&indexBufferDescription, &indexBufferData,
 				&indexBuffer));
 
-			initialVertices.resize(0);
+			if (access != Access::READ_LOCAL)
+			{
+				initialVertices.resize(0);
 
-			indexCount = initialIndices.size();
-			initialIndices.resize(0);
+				indexCount = initialIndices.size();
+				initialIndices.resize(0);
+			}
 
 			initialized = true;
 		}

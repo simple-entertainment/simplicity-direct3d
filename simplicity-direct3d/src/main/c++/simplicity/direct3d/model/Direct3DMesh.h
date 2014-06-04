@@ -37,9 +37,18 @@ namespace simplicity
 				*/
 				static const unsigned int TYPE_ID = 15;
 
-				Direct3DMesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
+				/**
+				 * @param indices The indices into the collection of vertices.
+				 * @param vertices The collection of vertices.
+				 * @param access The access to grant to this mesh's internal data i.e. vertices and indices after
+				 * initialization.
+				 */
+				Direct3DMesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices,
+					Access access = Access::NONE);
 
 				virtual ~Direct3DMesh();
+
+				Access getAccess() const override;
 
 				const Vector4& getColor() const override;
 
@@ -86,6 +95,8 @@ namespace simplicity
 				void setVisible(bool visible) override;
 
 			private:
+				Access access;
+
 				Vector4 color;
 
 				ID3D11Buffer* indexBuffer;
